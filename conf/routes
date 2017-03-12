@@ -1,0 +1,32 @@
+#Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# CAUTION: Do NOT add a route / since it will confuse the Google
+# Cloud load balancer.
+GET	/config			controllers.HomeController.config
+POST	/addAssignment		controllers.HomeController.addAssignment
+POST	/assignment		controllers.HomeController.index
+GET	/assignment	        controllers.HomeController.getAssignment(role: String, assignmentId: Long)
+GET	/assignment/editAssignment	controllers.HomeController.showEditPage(id: Long)	
+
+GET	/timedAssignment	controllers.HomeController.showTimedAssignment(assignmentId: Long, duration: Long)
+POST	/assignment/saveAssignment	controllers.HomeController.saveEditedAssignment(id: Long)
+
+POST	/submissions/:assignmentID/:userID/:problemId		controllers.SubmissionController.addSubmission(problemId: Long, assignmentID: Long, userID: String)
+GET    /send-score/:assignmentID/:userID   controllers.GradeSubmitterController.submitGradeToCanvas(assignmentID: Long, userID: String)
+
+POST	/send-interactivescore/:assignmentID   controllers.SubmissionController.addSubmissions(assignmentID: Long)
+# An example controller showing how to use dependency injection
+GET     /count                      controllers.CountController.count
+GET     /lti/count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET     /message                    controllers.AsyncController.message
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+# For backwards compatibility
+POST    /createAssignment             controllers.HomeController.index
+GET	/createAssignment	      controllers.HomeController.createAssignment
+POST	/addassignment		  controllers.HomeController.addAssignmentOutsideLMS
+POST	/assignment/deleteProblem     controllers.HomeController.deleteProblem(assignmentID: Long, problemID: Long)
